@@ -1,233 +1,871 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Qwik Tools – Resumability, Lazy Loading & Edge Performance Optimization</title>
-
-<meta name="description" content="Advanced Qwik tools for resumability, lazy loading, bundle optimization, edge execution, and performance analysis. Optimize modern web apps with fine-grained reactivity.">
-
-<meta name="keywords" content="qwik tools, qwik resumability, qwik lazy loading, qwik performance optimization, qwik hydration vs resume, qwik edge tools">
-
 <meta name="google-site-verification" content="PkLa_ViOo6FAHpvh8SacceMb95o9tePRdrqLNBz9X1M" />
+<meta name="robots" content="index, follow">
+
+<title>Qwik Resumability – How It Works, Performance Benefits &amp; Hydration Comparison (2025)</title>
+
+<meta name="description" content="Complete guide to Qwik resumability. How resumability differs from hydration, web performance benefits, architecture explanation, bundle size comparison, interactive visualization, and code examples. Qwik resumability performance 2025.">
+
+<meta name="keywords" content="qwik resumability, qwik resumability web performance, qwik resumability performance, qwik resumability architecture, qwik resumability web performance testing, qwik hydration vs resumability, qwik performance, qwik how it works">
+
+<link rel="canonical" href="https://franrivalbigprojects.github.io/qwik-tools/">
+
+<meta property="og:title" content="Qwik Resumability – How It Works and Why It's Faster Than Hydration (2025)">
+<meta property="og:description" content="How Qwik resumability works: zero JS on load, serialized state in HTML, lazy event handlers. Interactive comparison vs hydration. Performance benchmarks.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+:root {
+  --bg: #020810;
+  --surface: #060e18;
+  --surface2: #0a1520;
+  --border: #0e1e30;
+  --border2: #142840;
+  --qwik: #14b8a6;
+  --qwik-dim: rgba(20,184,166,0.12);
+  --qwik-dim2: rgba(20,184,166,0.05);
+  --qwik-glow: rgba(20,184,166,0.18);
+  --hyd: #f43f5e;
+  --hyd-dim: rgba(244,63,94,0.10);
+  --hyd-dim2: rgba(244,63,94,0.05);
+  --orange: #fb923c;
+  --orange-dim: rgba(251,146,60,0.08);
+  --yellow: #fbbf24;
+  --yellow-dim: rgba(251,191,36,0.08);
+  --green: #22c55e;
+  --green-dim2: rgba(34,197,94,0.05);
+  --blue: #60a5fa;
+  --text: #b0d4cc;
+  --text-muted: #3a5a58;
+  --text-dim: #0f2028;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Inter', sans-serif;
+  --r: 8px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-    margin: 0;
-    font-family: system-ui, Arial, sans-serif;
-    background: linear-gradient(135deg, #020617, #0f172a);
-    color: #e5e7eb;
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
 }
 
 header {
-    text-align: center;
-    padding: 60px 20px;
+  border-bottom: 1px solid var(--border2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(2,8,16,0.97);
+  backdrop-filter: blur(12px);
+}
+
+.header-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.logo-pill {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--qwik);
+  background: var(--qwik-dim2);
+  border: 1px solid rgba(20,184,166,0.3);
+  border-radius: 3px;
+  padding: 3px 9px;
+}
+
+.logo-text { font-family: var(--mono); font-size: 12px; color: var(--text-muted); }
+.logo-text strong { color: var(--qwik); font-weight: 500; }
+
+.wrapper {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero {
+  padding: 48px 0 28px;
+  border-bottom: 1px solid var(--border2);
+  margin-bottom: 28px;
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--qwik);
+  margin-bottom: 12px;
+  opacity: 0.8;
 }
 
 h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+  font-size: clamp(22px, 3.2vw, 30px);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
-h2 {
-    margin-top: 50px;
-    color: #14b8a6;
+h1 em { font-style: normal; color: var(--qwik); }
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--text-muted);
+  max-width: 660px;
+  line-height: 1.75;
+  margin-bottom: 16px;
 }
 
-main {
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
+.hero-sub strong { color: var(--text); }
+
+.metric-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 0;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
+.mc {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 5px;
+  padding: 8px 14px;
+  font-family: var(--mono);
+  font-size: 11px;
 }
 
-.card {
-    background: #020617;
-    border: 1px solid #1e293b;
-    border-radius: 14px;
-    padding: 20px;
-    transition: 0.3s ease;
+.mc-label { color: var(--text-muted); margin-bottom: 3px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.07em; }
+.mc-val { font-size: 13px; font-weight: 600; }
+.mc-q { color: var(--qwik); }
+.mc-h { color: var(--hyd); }
+
+/* VISUALIZER */
+.viz-shell {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  overflow: hidden;
+  margin-bottom: 18px;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-    border-color: #14b8a6;
+.viz-topbar {
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border2);
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.card a {
-    color: #14b8a6;
-    font-weight: bold;
-    text-decoration: none;
+.topbar-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
-.card a:hover {
-    text-decoration: underline;
+.viz-tabs {
+  display: flex;
+  gap: 6px;
 }
 
-footer {
-    text-align: center;
-    padding: 40px;
-    margin-top: 60px;
-    background: #020617;
-    font-size: 0.9rem;
+.vt-btn {
+  padding: 5px 14px;
+  font-family: var(--mono);
+  font-size: 11px;
+  border-radius: 4px;
+  border: 1px solid var(--border2);
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-muted);
+  transition: all 0.15s;
+}
+
+.vt-btn:hover { border-color: var(--qwik); color: var(--text); }
+.vt-btn.active-q { border-color: var(--qwik); background: var(--qwik-dim2); color: var(--qwik); }
+.vt-btn.active-h { border-color: var(--hyd); background: var(--hyd-dim2); color: var(--hyd); }
+
+.viz-stage {
+  padding: 20px;
+  min-height: 340px;
+  position: relative;
+}
+
+/* WATERFALL */
+.waterfall { display: flex; flex-direction: column; gap: 6px; }
+
+.wf-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+.wf-label {
+  width: 180px;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  text-align: right;
+  font-size: 10px;
+}
+
+.wf-track {
+  flex: 1;
+  height: 22px;
+  background: var(--border2);
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.wf-bar {
+  height: 100%;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: width 1s ease;
+}
+
+.wf-val {
+  width: 50px;
+  text-align: right;
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 10px;
+}
+
+.wf-sep {
+  height: 1px;
+  background: var(--border2);
+  margin: 4px 0;
+}
+
+.viz-legend {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border2);
+}
+
+.leg-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.leg-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.btn-replay {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: 1px solid rgba(20,184,166,0.3);
+  background: var(--qwik-dim2);
+  color: var(--qwik);
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.btn-replay:hover { opacity: 0.75; }
+
+/* COMPARISON TABLE */
+.cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border-radius: var(--r);
+  overflow: hidden;
+  border: 1px solid var(--border2);
+  margin-bottom: 14px;
+}
+
+.cmp-table th, .cmp-table td {
+  padding: 10px 14px;
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 11px;
+  border-bottom: 1px solid var(--border2);
+}
+
+.cmp-table th {
+  background: var(--surface2);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.cmp-table td { color: var(--text-muted); }
+.cmp-table tr:last-child td { border-bottom: none; }
+.cmp-table tr:hover td { background: rgba(20,184,166,0.02); }
+.td-feat { color: var(--text); font-weight: 500; width: 200px; }
+.td-q { color: var(--qwik); }
+.td-h { color: var(--hyd); }
+
+/* CODE BLOCK */
+.code-block {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-left: 3px solid var(--qwik);
+  border-radius: 5px;
+  padding: 14px 16px;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.8;
+  overflow-x: auto;
+  white-space: pre;
+  margin: 12px 0;
+  color: var(--text-muted);
+}
+
+.ck { color: var(--qwik); }
+.cg { color: var(--green); }
+.cm { color: var(--text-dim); }
+.cs { color: var(--yellow); }
+.ct { color: var(--orange); }
+
+/* SECTION */
+hr.divider { border: none; border-top: 1px solid var(--border2); margin: 50px 0; }
+.content-section { margin-bottom: 50px; }
+
+.sec-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.sec-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--qwik);
+  white-space: nowrap;
+  opacity: 0.7;
+}
+
+.sec-rule { flex: 1; height: 1px; background: var(--border2); }
+
+p { font-size: 14px; color: var(--text-muted); line-height: 1.8; margin-bottom: 10px; max-width: 820px; }
+p strong { color: var(--text); }
+
+code {
+  font-family: var(--mono);
+  font-size: 12px;
+  background: var(--surface2);
+  color: var(--qwik);
+  padding: 2px 7px;
+  border-radius: 3px;
+  border: 1px solid var(--border2);
+}
+
+.dense-block {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  padding: 22px;
+  margin-top: 14px;
+}
+
+.dense-block p { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border2); max-width: none; }
+.dense-block p:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+.faq-list { margin-top: 14px; border: 1px solid var(--border2); border-radius: var(--r); overflow: hidden; }
+.faq-item { border-bottom: 1px solid var(--border2); }
+.faq-item:last-child { border-bottom: none; }
+
+.faq-q {
+  width: 100%;
+  text-align: left;
+  background: var(--surface);
+  border: none;
+  padding: 13px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  font-family: var(--sans);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.15s;
+}
+
+.faq-q:hover { background: var(--qwik-dim2); }
+.faq-arrow { font-family: var(--mono); font-size: 11px; color: var(--text-dim); transition: transform 0.2s; flex-shrink: 0; }
+.faq-item.open .faq-arrow { transform: rotate(180deg); }
+
+.faq-a {
+  display: none;
+  padding: 0 18px 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.75;
+  border-top: 1px solid var(--border2);
+  background: var(--bg);
+}
+
+.faq-item.open .faq-a { display: block; }
+.faq-a code { color: var(--qwik); background: var(--qwik-dim2); }
+
+.tag-cloud { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 50px; }
+.tag {
+  font-family: var(--mono); font-size: 10px; color: var(--text-muted);
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: 100px; padding: 4px 12px; cursor: default;
+}
+.tag:hover { color: var(--qwik); border-color: rgba(20,184,166,0.3); }
+
+footer { border-top: 1px solid var(--border2); padding: 20px 0; position: relative; z-index: 1; }
+.footer-inner {
+  max-width: 1060px; margin: 0 auto; padding: 0 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 8px;
+}
+footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin: 0; }
+
+@media (max-width: 680px) {
+  .metric-chips { flex-direction: column; }
+  .wf-label { width: 110px; font-size: 9px; }
 }
 </style>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"TechArticle","headline":"Qwik Resumability – How It Works and Web Performance Benefits 2025","description":"Complete explanation of Qwik resumability vs hydration. How resumability achieves zero JS on startup, serialized state in HTML, lazy-loaded event handlers. Performance comparison, architecture guide, and code examples.","keywords":"qwik resumability, qwik resumability web performance, qwik hydration vs resumability, qwik performance"}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is Qwik resumability?","acceptedAnswer":{"@type":"Answer","text":"Qwik resumability is an alternative to JavaScript hydration. Traditional SSR frameworks (React, Vue, Angular) serialize HTML on the server, then re-execute all component code on the client to re-attach event listeners — this is hydration. Qwik avoids this by serializing the application state AND the event handler references into the HTML itself (using qwikloader, a tiny 1KB script). When a user clicks a button, Qwik downloads only that specific handler's code chunk, not the entire application bundle. Result: zero JavaScript executed on startup regardless of app size."}},{"@type":"Question","name":"How does Qwik resumability improve web performance?","acceptedAnswer":{"@type":"Answer","text":"Qwik resumability improves web performance by eliminating startup JavaScript execution. In hydration-based frameworks: the browser downloads the full JS bundle, parses it, executes it, and re-builds the component tree. This contributes to Time-to-Interactive (TTI) delay. With Qwik: the server serializes state and event references into HTML. The browser loads a 1KB qwikloader. No JS runs until user interaction. On first click, only the specific handler chunk (typically 2-10KB) is fetched. This makes Qwik apps achieve near-instant TTI regardless of app complexity."}}]}
+</script>
 
 </head>
 
 <body>
-
 <header>
-<h1>Qwik Tools for Resumability, Lazy Loading & Ultra-Fast Web Performance</h1>
-<p>Explore advanced Qwik tools to optimize bundle size, leverage resumability, improve edge performance, and build highly efficient reactive web applications.</p>
+  <div class="header-inner">
+    <span class="logo-pill">Qwik</span>
+    <span class="logo-text"><strong>resumability</strong> &middot; architecture &middot; performance</span>
+  </div>
 </header>
 
-<main>
+<div class="wrapper">
 
-<section>
-<h2>Core Performance & Optimization</h2>
+  <section class="hero">
+    <p class="hero-eyebrow">// Qwik Framework 2025</p>
+    <h1>Qwik <em>Resumability</em> —<br>How It Works &amp; Web Performance Explained</h1>
+    <p class="hero-sub">
+      How Qwik achieves <strong>zero JavaScript on startup</strong>: state serialized in HTML, lazy event handlers, and no re-execution on the client. Complete comparison vs hydration with performance benchmarks.
+    </p>
+    <div class="metric-chips">
+      <div class="mc"><div class="mc-label">Startup JS (Qwik)</div><div class="mc-val mc-q">~1 KB</div></div>
+      <div class="mc"><div class="mc-label">Startup JS (React SSR)</div><div class="mc-val mc-h">150–400 KB</div></div>
+      <div class="mc"><div class="mc-label">TTI on slow 3G (Qwik)</div><div class="mc-val mc-q">~0.3s</div></div>
+      <div class="mc"><div class="mc-label">TTI on slow 3G (React)</div><div class="mc-val mc-h">3–8s</div></div>
+      <div class="mc"><div class="mc-label">Qwikloader size</div><div class="mc-val mc-q">1 KB</div></div>
+    </div>
+  </section>
 
-<div class="grid">
+  <!-- INTERACTIVE VISUALIZER -->
 
-<div class="card">
-<p>
-qwik-tools/performance/
-Analyze runtime performance and rendering efficiency in Qwik apps.
-<a href="qwik-tools/performance/">Performance Analyzer</a>
-</p>
+  <div class="viz-shell">
+    <div class="viz-topbar">
+      <span class="topbar-label">// Performance Visualizer — Resumability vs Hydration</span>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <div class="viz-tabs">
+          <button class="vt-btn active-q" id="btnQwik" onclick="showMode('qwik',this)">Qwik (Resumable)</button>
+          <button class="vt-btn" id="btnHyd" onclick="showMode('hydration',this)">React SSR (Hydration)</button>
+          <button class="vt-btn" id="btnBoth" onclick="showMode('both',this)">Side by Side</button>
+        </div>
+        <button class="btn-replay" onclick="replayAnim()">Replay</button>
+      </div>
+    </div>
+
+
+<div class="viz-stage" id="vizStage"></div>
+
+
+  </div>
+
+  <hr class="divider">
+
+  <!-- DEEP EXPLANATION -->
+
+  <section class="content-section">
+    <div class="sec-head">
+      <span class="sec-label">How resumability works</span>
+      <span class="sec-rule"></span>
+    </div>
+    <div class="dense-block">
+      <p><strong>Step 1 — Server serializes everything into HTML</strong><br>
+      When Qwik renders on the server, it does everything React SSR does — renders HTML — but additionally serializes the <strong>complete application state</strong> and <strong>event handler references</strong> directly into the HTML as JSON in a special <code>script</code> tag (<code>type="qwik/json"</code>). Event listeners are encoded as <code>on:click</code> attributes pointing to lazy-loadable chunk URLs. The client receives fully-rendered HTML with all the information needed to resume — not restart — the app.</p>
+      <p><strong>Step 2 — Qwikloader (1KB) intercepts events</strong><br>
+      Instead of loading your app's JavaScript, Qwik loads a single <strong>1KB inline script called Qwikloader</strong>. Qwikloader attaches a single global event listener using event delegation. It intercepts user interactions (clicks, inputs, keypresses) before any app code runs. No component code executes on startup. No virtual DOM is constructed. No event listeners are attached per-element. This is why Qwik's TTI is effectively zero regardless of app size.</p>
+      <p><strong>Step 3 — Lazy-load only what the user triggers</strong><br>
+      When a user clicks a button, Qwikloader reads the <code>on:click</code> attribute, which contains a URL to the specific JavaScript chunk for that handler. Qwik fetches <strong>only that handler chunk</strong> (typically 2-10KB), deserializes the relevant state from the HTML JSON, and executes the handler. Adjacent components, unrelated handlers, and unvisited routes are <strong>never downloaded</strong>. This is fundamentally different from hydration — which must download everything before any interaction can be processed.</p>
+      <p><strong>Why this matters for web performance</strong><br>
+      The standard web performance metrics all improve with resumability: <strong>FCP (First Contentful Paint)</strong> — same as any SSR framework, HTML arrives pre-rendered. <strong>TTI (Time to Interactive)</strong> — near-zero, since Qwikloader handles events without app JS. <strong>TBT (Total Blocking Time)</strong> — zero on startup, since no large JS bundle parses and executes. <strong>CLS (Cumulative Layout Shift)</strong> — same as SSR (pre-rendered HTML). On slow 3G connections, React SSR apps can take 3-8 seconds to become interactive while the JS bundle hydrates. Qwik apps are interactive in milliseconds.</p>
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE -->
+
+  <section class="content-section">
+    <div class="sec-head">
+      <span class="sec-label">Resumability vs Hydration comparison</span>
+      <span class="sec-rule"></span>
+    </div>
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th class="td-feat">Property</th>
+          <th style="color:var(--qwik)">Qwik Resumability</th>
+          <th style="color:var(--hyd)">Hydration (React/Vue/Angular SSR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-feat">Startup JS downloaded</td><td class="td-q">~1KB (qwikloader only)</td><td class="td-h">Full bundle (150–400KB+)</td></tr>
+        <tr><td class="td-feat">Startup JS executed</td><td class="td-q">0 — qwikloader is inline</td><td class="td-h">Full bundle parsed + executed</td></tr>
+        <tr><td class="td-feat">Time to Interactive (TTI)</td><td class="td-q">Near-instant (~0.3s)</td><td class="td-h">After full bundle loads (3–8s on 3G)</td></tr>
+        <tr><td class="td-feat">DOM re-created on client</td><td class="td-q">No — HTML is the truth</td><td class="td-h">Yes — full virtual DOM reconstruction</td></tr>
+        <tr><td class="td-feat">Event listeners at startup</td><td class="td-q">None (one global on window)</td><td class="td-h">Re-attached to every element</td></tr>
+        <tr><td class="td-feat">State on client at startup</td><td class="td-q">Deserialized from HTML on demand</td><td class="td-h">Re-computed by running component code</td></tr>
+        <tr><td class="td-feat">Code executed per interaction</td><td class="td-q">Only handler chunk (~2-10KB)</td><td class="td-h">Handlers already loaded — re-renders may occur</td></tr>
+        <tr><td class="td-feat">Scales with app size</td><td class="td-q">Yes — TTI stays constant</td><td class="td-h">No — TTI grows with bundle size</td></tr>
+        <tr><td class="td-feat">Server-side rendering</td><td class="td-q">Required (full SSR)</td><td class="td-h">Required for SSR hydration</td></tr>
+        <tr><td class="td-feat">Framework examples</td><td class="td-q">Qwik, Qwik City</td><td class="td-h">Next.js, Nuxt, Angular Universal, SvelteKit*</td></tr>
+        <tr><td class="td-feat">Cold start penalty</td><td class="td-q">None</td><td class="td-h">Every page load pays the hydration cost</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:var(--text-dim);">* SvelteKit compiles to smaller bundles but still requires hydration. Astro uses partial hydration which is different from resumability.</p>
+  </section>
+
+  <!-- CODE EXAMPLES -->
+
+  <section class="content-section">
+    <div class="sec-head">
+      <span class="sec-label">Qwik resumability in code</span>
+      <span class="sec-rule"></span>
+    </div>
+
+<div class="code-block"><span class="cm">// ─── Qwik Component — resumability in action ───</span>
+
+
+<span class="ck">import</span> { component$, useSignal } <span class="ck">from</span> <span class="cs">’@builder.io/qwik’</span>;
+
+<span class="cm">// $ suffix = lazy boundary — this chunk loads separately</span>
+<span class="ck">export const</span> Counter = <span class="ct">component$</span>(() => {
+<span class="ck">const</span> count = <span class="ct">useSignal</span>(<span class="cg">0</span>);
+
+<span class="cm">// onClick$ is serialized into HTML as a lazy chunk reference</span>
+<span class="cm">// The handler code is NOT downloaded until the button is clicked</span>
+<span class="ck">return</span> (
+<span class="ck"><</span>button <span class="ct">onClick$</span>={() => count.value++}>
+Count: {count.value}
+<span class="ck"></</span>button>
+);
+});
+
+<span class="cm">// ─── What Qwik serializes into HTML ───</span>
+<span class="cm">// The server renders this into the HTML:</span>
+<span class="cg"><button on:click=“q-chunk-abc123.js#Counter_onClick”></span>
+<span class="cg">  Count: 0</span>
+<span class="cg"></button></span>
+<span class="cg"><script type=“qwik/json”></span>
+<span class="cg">  {“objs”: [0], “subs”: [[“counter”, 0]]}</span>
+<span class="cg"></script></span>
+
+<span class="cm">// ─── What happens on first click ───</span>
+<span class="cm">// 1. Qwikloader intercepts click event (global listener)</span>
+<span class="cm">// 2. Reads on:click=“q-chunk-abc123.js#Counter_onClick”</span>
+<span class="cm">// 3. Fetches q-chunk-abc123.js (~2KB) — ONLY this file</span>
+<span class="cm">// 4. Deserializes count state from qwik/json</span>
+<span class="cm">// 5. Executes handler: count.value++</span>
+<span class="cm">// 6. Fine-grained reactivity updates only the text node</span></div>
+
+<div class="code-block"><span class="cm">// ─── Qwik City (Router) — routeLoader$ ───</span>
+
+
+<span class="cm">// Similar to Remix loaders but with resumability</span>
+<span class="ck">import</span> { routeLoader$, routeAction$ } <span class="ck">from</span> <span class="cs">’@builder.io/qwik-city’</span>;
+
+<span class="cm">// Runs on server, serialized into HTML — NOT re-fetched on client</span>
+<span class="ck">export const</span> useUserData = <span class="ct">routeLoader$</span>(<span class="ck">async</span> ({ params }) => {
+<span class="ck">const</span> user = <span class="ck">await</span> db.user.findUnique({ where: { id: params.id } });
+<span class="ck">return</span> user;
+});
+
+<span class="cm">// Form action — also lazy, only fetched on submit</span>
+<span class="ck">export const</span> useUpdateUser = <span class="ct">routeAction$</span>(<span class="ck">async</span> (data) => {
+<span class="ck">await</span> db.user.update({ where: { id: data.id }, data });
+<span class="ck">return</span> { success: <span class="ck">true</span> };
+});</div>
+
+  </section>
+
+  <!-- FAQ -->
+
+  <section class="content-section">
+    <div class="sec-head">
+      <span class="sec-label">FAQ — Qwik resumability</span>
+      <span class="sec-rule"></span>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is Qwik resumability?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a">Resumability is Qwik's alternative to hydration. Traditional SSR frameworks re-execute all component code on the client to re-attach event listeners (hydration). Qwik serializes the application state AND event handler chunk URLs into the HTML. A 1KB Qwikloader script intercepts events globally. When a user interacts, Qwik fetches only that specific handler's code chunk (~2-10KB). Result: zero JavaScript executed on startup, regardless of app size.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How does Qwik resumability improve web performance?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a">Three key performance improvements: (1) <strong>TTI near zero</strong> — no JS bundle to parse/execute before the app is interactive. (2) <strong>Constant startup cost</strong> — TTI doesn't grow as the app gets larger, unlike hydration. (3) <strong>Pays only for what's used</strong> — features never clicked by a user never download their code. On slow 3G, this is the difference between 3-8 seconds vs milliseconds. Lighthouse scores improve dramatically since no large JS bundle blocks the main thread.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is the difference between Qwik and React with SSR?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a">Both render HTML on the server. The difference is what happens on the client: <strong>React SSR + hydration</strong> — downloads the full JS bundle, parses it, re-runs all component code, re-constructs the virtual DOM, re-attaches every event listener. <strong>Qwik resumability</strong> — downloads only qwikloader (1KB), reads serialized state from HTML, intercepts events globally. First interaction downloads only the clicked handler (~2-10KB). The performance gap grows as app complexity increases.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is Qwik resumability ready for production in 2025?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a">Qwik 1.x and Qwik City are stable and production-ready. Several companies use Qwik in production. Qwik 2.0 was announced with further performance improvements. Ecosystem maturity is smaller than React/Next.js but growing. Use cases where Qwik shines most: e-commerce (interaction-heavy, performance-critical), content sites with SPAs, dashboard apps. If you're building a new project where TTI and Lighthouse scores are critical, Qwik is a strong choice in 2025.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How does Qwik handle state serialization?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a">Qwik uses a special <code>type="qwik/json"</code> script tag injected into the HTML by the server. This tag contains a compact JSON representation of all reactive state (signals, stores) used on the page. When a handler is invoked, Qwik deserializes only the state relevant to that handler from this JSON. State updates trigger Qwik's fine-grained reactivity — only the specific DOM nodes that depend on the changed signal are updated, without re-rendering the entire component tree.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="tag-cloud">
+    <span class="tag">qwik resumability</span>
+    <span class="tag">qwik resumability web performance</span>
+    <span class="tag">qwik resumability performance</span>
+    <span class="tag">qwik resumability architecture</span>
+    <span class="tag">qwik hydration vs resumability</span>
+    <span class="tag">qwikloader</span>
+    <span class="tag">qwik tti</span>
+    <span class="tag">qwik lazy loading</span>
+    <span class="tag">qwik web performance testing</span>
+    <span class="tag">qwik vs react performance</span>
+  </div>
+
 </div>
-
-<div class="card">
-<p>
-qwik-tools/optimizer/
-Optimize bundle output and minimize JavaScript payload.
-<a href="qwik-tools/optimizer/">Qwik Optimizer Tool</a>
-</p>
-</div>
-
-<div class="card">
-<p>
-qwik-tools/bundle-chunk/
-Analyze bundle chunking and code-splitting strategies.
-<a href="qwik-tools/bundle-chunk/">Bundle Chunk Analyzer</a>
-</p>
-</div>
-
-</div>
-
-</section>
-
-<section>
-<h2>Resumability & Hydration</h2>
-
-<div class="grid">
-
-<div class="card">
-<p>
-qwik-tools/resumability/
-Explore resumability architecture and execution flow.
-<a href="qwik-tools/resumability/">Resumability Analyzer</a>
-</p>
-</div>
-
-<div class="card">
-<p>
-qwik-tools/hydration-vs-resume/
-Compare hydration vs resumability performance.
-<a href="qwik-tools/hydration-vs-resume/">Hydration vs Resume Tool</a>
-</p>
-</div>
-
-<div class="card">
-<p>
-qwik-tools/state-resume/
-Analyze state serialization and resume behavior.
-<a href="qwik-tools/state-resume/">State Resume Tool</a>
-</p>
-</div>
-
-</div>
-
-</section>
-
-<section>
-<h2>Lazy Loading & Reactivity</h2>
-
-<div class="grid">
-
-<div class="card">
-<p>
-qwik-tools/lazy-boundary/
-Define lazy boundaries and optimize loading strategies.
-<a href="qwik-tools/lazy-boundary/">Lazy Boundary Tool</a>
-</p>
-</div>
-
-<div class="card">
-<p>
-qwik-tools/event-lazy/
-Optimize lazy event handling and execution.
-<a href="qwik-tools/event-lazy/">Event Lazy Tool</a>
-</p>
-</div>
-
-<div class="card">
-<p>
-qwik-tools/reactivity/
-Analyze fine-grained reactivity and state updates.
-<a href="qwik-tools/reactivity/">Reactivity Analyzer</a>
-</p>
-</div>
-
-</div>
-
-</section>
-
-<section>
-<h2>Edge, Serialization & Architecture</h2>
-
-<div class="grid">
-
-<div class="card">
-<p>
-qwik-tools/edge/
-Optimize edge execution and server-side performance.
-<a href="qwik-tools/edge/">Edge Performance Tool</a>
-</p>
-</div>
-
-<div class="card">
-<p>
-qwik-tools/server-client/
-Analyze server-client boundaries and communication.
-<a href="qwik-tools/server-client/">Server Client Tool</a>
-</p>
-</div>
-
-<div class="card">
-<p>
-qwik-tools/serialization/
-Analyze serialization strategies for efficient state transfer.
-<a href="qwik-tools/serialization/">Serialization Analyzer</a>
-</p>
-</div>
-
-</div>
-
-</section>
-
-</main>
 
 <footer>
-<p>Qwik tools designed for frontend engineers building ultra-fast, scalable, and edge-optimized web applications.</p>
+  <div class="footer-inner">
+    <p>qwik-resumability &middot; architecture &middot; performance &middot; 2025</p>
+    <p>resumable vs hydration &middot; qwikloader &middot; lazy handlers &middot; tti</p>
+  </div>
 </footer>
+
+<script>
+var currentMode = 'qwik';
+
+// ─── DATA ───
+var QWIK_STEPS = [
+  { label: 'HTML arrives (pre-rendered)', ms: 300, pct: 15, color: '#14b8a6', note: '100KB HTML' },
+  { label: 'Qwikloader inline (1KB)', ms: 310, pct: 2, color: '#0d9488', note: '1KB — runs instantly' },
+  { label: 'Page interactive', ms: 320, pct: 0, color: '#22c55e', note: '★ TTI ~320ms' },
+  { label: '─ user clicks button ─', ms: 1200, pct: 0, color: 'transparent', note: '' },
+  { label: 'Fetch handler chunk', ms: 1350, pct: 5, color: '#14b8a6', note: '4KB handler JS' },
+  { label: 'Deserialize state', ms: 1360, pct: 1, color: '#0d9488', note: 'From qwik/json' },
+  { label: 'Execute handler + update DOM', ms: 1380, pct: 2, color: '#22c55e', note: 'Fine-grained update' }
+];
+
+var HYD_STEPS = [
+  { label: 'HTML arrives (pre-rendered)', ms: 300, pct: 15, color: '#f43f5e', note: '100KB HTML' },
+  { label: 'Download JS bundle', ms: 800, pct: 60, color: '#e11d48', note: '280KB bundle' },
+  { label: 'Parse + compile JS', ms: 1400, pct: 30, color: '#be123c', note: 'Main thread blocked' },
+  { label: 'Execute all components', ms: 2200, pct: 35, color: '#9f1239', note: 'Re-run all code' },
+  { label: 'Reconcile virtual DOM', ms: 2600, pct: 20, color: '#e11d48', note: 'Diff + patch' },
+  { label: 'Attach event listeners', ms: 2900, pct: 15, color: '#f43f5e', note: 'All elements' },
+  { label: 'Page interactive', ms: 3100, pct: 0, color: '#fb923c', note: '★ TTI ~3.1s' }
+];
+
+function buildWaterfall(steps, title, titleColor) {
+  var container = document.createElement('div');
+  container.style.flex = '1';
+
+  var head = document.createElement('div');
+  head.style.cssText = 'font-family:var(--mono);font-size:11px;font-weight:600;color:' + titleColor + ';margin-bottom:12px;text-transform:uppercase;letter-spacing:0.08em;';
+  head.textContent = title;
+  container.appendChild(head);
+
+  var maxMs = steps[steps.length - 1].ms;
+
+  steps.forEach(function(step, idx) {
+    if (step.pct === 0 && step.label.indexOf('─') !== -1) {
+      var sep = document.createElement('div');
+      sep.style.cssText = 'font-family:var(--mono);font-size:10px;color:var(--text-dim);padding:6px 0;border-top:1px solid var(--border2);margin:4px 0;';
+      sep.textContent = step.label;
+      container.appendChild(sep);
+      return;
+    }
+
+    var row = document.createElement('div');
+    row.className = 'wf-row';
+
+    var lbl = document.createElement('span');
+    lbl.className = 'wf-label';
+    lbl.textContent = step.label;
+    if (step.pct === 0) lbl.style.color = titleColor;
+
+    var track = document.createElement('div');
+    track.className = 'wf-track';
+
+    var bar = document.createElement('div');
+    bar.className = 'wf-bar';
+    bar.style.width = '0%';
+    bar.style.background = step.color;
+    bar.style.color = step.pct >= 10 ? '#000' : 'transparent';
+
+    var valEl = document.createElement('span');
+    valEl.className = 'wf-val';
+    valEl.style.color = step.ms >= 3000 ? 'var(--hyd)' : step.ms <= 400 ? 'var(--qwik)' : 'var(--text-muted)';
+    valEl.textContent = step.ms + 'ms';
+
+    if (step.note) {
+      bar.textContent = step.note;
+    }
+
+    track.appendChild(bar);
+    row.appendChild(lbl);
+    row.appendChild(track);
+    row.appendChild(valEl);
+    container.appendChild(row);
+
+    if (step.pct > 0) {
+      var targetPct = Math.min(step.pct * 1.2, 95);
+      setTimeout(function(b, p) {
+        return function() { b.style.width = p + '%'; };
+      }(bar, targetPct), 150 + idx * 120);
+    }
+  });
+
+  return container;
+}
+
+function showMode(mode, btn) {
+  currentMode = mode;
+  document.querySelectorAll('.vt-btn').forEach(function(b) { b.classList.remove('active-q', 'active-h'); });
+  if (btn) {
+    btn.classList.add(mode === 'hydration' ? 'active-h' : 'active-q');
+  }
+  renderViz();
+}
+
+function renderViz() {
+  var stage = document.getElementById('vizStage');
+  stage.innerHTML = '';
+
+  if (currentMode === 'both') {
+    var row = document.createElement('div');
+    row.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:20px;';
+    row.appendChild(buildWaterfall(QWIK_STEPS, 'Qwik (Resumable)', '#14b8a6'));
+    row.appendChild(buildWaterfall(HYD_STEPS, 'React SSR (Hydration)', '#f43f5e'));
+    stage.appendChild(row);
+  } else if (currentMode === 'qwik') {
+    var wrapper = document.createElement('div');
+    wrapper.appendChild(buildWaterfall(QWIK_STEPS, 'Qwik — Resumability Timeline (slow 3G)', '#14b8a6'));
+    stage.appendChild(wrapper);
+  } else {
+    var wrapper2 = document.createElement('div');
+    wrapper2.appendChild(buildWaterfall(HYD_STEPS, 'React SSR — Hydration Timeline (slow 3G)', '#f43f5e'));
+    stage.appendChild(wrapper2);
+  }
+
+  var legend = document.createElement('div');
+  legend.className = 'viz-legend';
+
+  var items = [
+    { color: '#14b8a6', label: 'Qwik — startup JS: ~1KB' },
+    { color: '#f43f5e', label: 'Hydration — startup JS: 150–400KB' },
+    { color: '#22c55e', label: '★ Time to Interactive' },
+    { color: '#e11d48', label: 'Main thread blocked (parse + execute)' }
+  ];
+
+  items.forEach(function(item) {
+    var li = document.createElement('div');
+    li.className = 'leg-item';
+    var dot = document.createElement('span');
+    dot.className = 'leg-dot';
+    dot.style.background = item.color;
+    var lbl = document.createElement('span');
+    lbl.textContent = item.label;
+    li.appendChild(dot);
+    li.appendChild(lbl);
+    legend.appendChild(li);
+  });
+
+  stage.appendChild(legend);
+}
+
+function replayAnim() {
+  renderViz();
+}
+
+function toggleFaq(btn) {
+  btn.parentElement.classList.toggle('open');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  renderViz();
+});
+</script>
 
 </body>
 </html>
