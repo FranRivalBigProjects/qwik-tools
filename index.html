@@ -5,19 +5,33 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="PkLa_ViOo6FAHpvh8SacceMb95o9tePRdrqLNBz9X1M" />
-<meta name="robots" content="index, follow">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 
-<title>Qwik Resumability – How It Works, Performance Benefits &amp; Hydration Comparison (2025)</title>
+<!-- IMPROVED TITLE & META (Better CTR) -->
 
-<meta name="description" content="Complete guide to Qwik resumability. How resumability differs from hydration, web performance benefits, architecture explanation, bundle size comparison, interactive visualization, and code examples. Qwik resumability performance 2025.">
+<title>Qwik Resumability Visualizer: Interactive Guide vs React Hydration (2025)</title>
 
-<meta name="keywords" content="qwik resumability, qwik resumability web performance, qwik resumability performance, qwik resumability architecture, qwik resumability web performance testing, qwik hydration vs resumability, qwik performance, qwik how it works">
+<meta name="description" content="See exactly how Qwik resumability beats React hydration. Interactive visualizer, performance benchmarks, side-by-side comparison. Zero JS on startup. TTI 10x faster.">
+
+<meta name="keywords" content="qwik resumability, qwik resumability web performance, qwik resumability performance, qwik hydration vs resumability, qwik performance, resumability vs hydration, qwikloader, qwik tti, web performance, javascript optimization">
 
 <link rel="canonical" href="https://franrivalbigprojects.github.io/qwik-tools/">
 
-<meta property="og:title" content="Qwik Resumability – How It Works and Why It's Faster Than Hydration (2025)">
-<meta property="og:description" content="How Qwik resumability works: zero JS on load, serialized state in HTML, lazy event handlers. Interactive comparison vs hydration. Performance benchmarks.">
+<!-- ENHANCED OG TAGS -->
+
+<meta property="og:title" content="Qwik Resumability Visualizer: Interactive Performance Comparison (2025)">
+<meta property="og:description" content="Interactive tool showing how Qwik resumability achieves zero JS startup vs React SSR hydration. Real performance metrics, side-by-side animations, code examples.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://franrivalbigprojects.github.io/qwik-tools/">
+<meta property="og:site_name" content="Qwik Tools">
+
+<!-- TWITTER CARD -->
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Qwik Resumability Visualizer">
+<meta name="twitter:description" content="Interactive comparison of Qwik resumability vs React hydration. See how zero JS startup works.">
+
+<!-- PRELOAD -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -145,6 +159,38 @@ h1 {
 
 h1 em { font-style: normal; color: var(--qwik); }
 
+h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 36px 0 14px 0;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  padding-top: 24px;
+  border-top: 1px solid var(--border2);
+}
+
+h2:first-of-type {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 28px;
+}
+
+h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--qwik);
+  margin: 24px 0 12px 0;
+  letter-spacing: -0.005em;
+}
+
+h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 16px 0 8px 0;
+}
+
 .hero-sub {
   font-size: 15px;
   color: var(--text-muted);
@@ -182,7 +228,7 @@ h1 em { font-style: normal; color: var(--qwik); }
   border: 1px solid var(--border2);
   border-radius: var(--r);
   overflow: hidden;
-  margin-bottom: 18px;
+  margin: 28px 0 18px 0;
 }
 
 .viz-topbar {
@@ -332,7 +378,7 @@ h1 em { font-style: normal; color: var(--qwik); }
   border-radius: var(--r);
   overflow: hidden;
   border: 1px solid var(--border2);
-  margin-bottom: 14px;
+  margin: 16px 0 14px 0;
 }
 
 .cmp-table th, .cmp-table td {
@@ -369,7 +415,7 @@ h1 em { font-style: normal; color: var(--qwik); }
   line-height: 1.8;
   overflow-x: auto;
   white-space: pre;
-  margin: 12px 0;
+  margin: 16px 0;
   color: var(--text-muted);
 }
 
@@ -382,25 +428,6 @@ h1 em { font-style: normal; color: var(--qwik); }
 /* SECTION */
 hr.divider { border: none; border-top: 1px solid var(--border2); margin: 50px 0; }
 .content-section { margin-bottom: 50px; }
-
-.sec-head {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 18px;
-}
-
-.sec-label {
-  font-family: var(--mono);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--qwik);
-  white-space: nowrap;
-  opacity: 0.7;
-}
-
-.sec-rule { flex: 1; height: 1px; background: var(--border2); }
 
 p { font-size: 14px; color: var(--text-muted); line-height: 1.8; margin-bottom: 10px; max-width: 820px; }
 p strong { color: var(--text); }
@@ -420,11 +447,13 @@ code {
   border: 1px solid var(--border2);
   border-radius: var(--r);
   padding: 22px;
-  margin-top: 14px;
+  margin: 16px 0;
 }
 
 .dense-block p { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border2); max-width: none; }
 .dense-block p:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+.dense-block h4 { margin-top: 0; }
 
 .faq-list { margin-top: 14px; border: 1px solid var(--border2); border-radius: var(--r); overflow: hidden; }
 .faq-item { border-bottom: 1px solid var(--border2); }
@@ -465,7 +494,7 @@ code {
 .faq-item.open .faq-a { display: block; }
 .faq-a code { color: var(--qwik); background: var(--qwik-dim2); }
 
-.tag-cloud { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 50px; }
+.tag-cloud { display: flex; flex-wrap: wrap; gap: 7px; margin: 50px 0; }
 .tag {
   font-family: var(--mono); font-size: 10px; color: var(--text-muted);
   background: var(--surface); border: 1px solid var(--border2);
@@ -473,7 +502,50 @@ code {
 }
 .tag:hover { color: var(--qwik); border-color: rgba(20,184,166,0.3); }
 
-footer { border-top: 1px solid var(--border2); padding: 20px 0; position: relative; z-index: 1; }
+.internal-links {
+  background: var(--qwik-dim2);
+  border: 1px solid rgba(20,184,166,0.3);
+  border-radius: var(--r);
+  padding: 18px;
+  margin: 28px 0;
+}
+
+.internal-links h4 {
+  margin-top: 0;
+  color: var(--qwik);
+  margin-bottom: 12px;
+}
+
+.internal-links ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.internal-links li {
+  margin-bottom: 8px;
+}
+
+.internal-links a {
+  color: var(--qwik);
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.internal-links a:hover {
+  text-decoration: underline;
+}
+
+.internal-links a::before {
+  content: "→";
+  font-family: var(--mono);
+  font-size: 10px;
+}
+
+footer { border-top: 1px solid var(--border2); padding: 20px 0; position: relative; z-index: 1; margin-top: 80px; }
 .footer-inner {
   max-width: 1060px; margin: 0 auto; padding: 0 24px;
   display: flex; justify-content: space-between; align-items: center;
@@ -484,15 +556,138 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
 @media (max-width: 680px) {
   .metric-chips { flex-direction: column; }
   .wf-label { width: 110px; font-size: 9px; }
+  h2 { font-size: 1.3rem; }
+  h3 { font-size: 1.05rem; }
 }
 </style>
 
+<!-- ENHANCED SCHEMA MARKUP -->
+
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"TechArticle","headline":"Qwik Resumability – How It Works and Web Performance Benefits 2025","description":"Complete explanation of Qwik resumability vs hydration. How resumability achieves zero JS on startup, serialized state in HTML, lazy-loaded event handlers. Performance comparison, architecture guide, and code examples.","keywords":"qwik resumability, qwik resumability web performance, qwik hydration vs resumability, qwik performance"}
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Qwik Resumability Visualizer: Interactive Guide vs React Hydration",
+  "description": "Interactive tool comparing Qwik resumability vs React hydration. See performance benchmarks, side-by-side visualizations, and code examples.",
+  "url": "https://franrivalbigprojects.github.io/qwik-tools/",
+  "image": "https://franrivalbigprojects.github.io/qwik-tools/og-image.png",
+  "datePublished": "2025-04-13",
+  "dateModified": "2025-05-11",
+  "author": {
+    "@type": "Person",
+    "name": "Emmanuel Ibarra",
+    "url": "https://emmanuelibarra.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Qwik Tools",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://franrivalbigprojects.github.io/qwik-tools/logo.png"
+    }
+  },
+  "inLanguage": "en-US",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Qwik Tools",
+    "url": "https://franrivalbigprojects.github.io/qwik-tools/"
+  }
+}
 </script>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is Qwik resumability?","acceptedAnswer":{"@type":"Answer","text":"Qwik resumability is an alternative to JavaScript hydration. Traditional SSR frameworks (React, Vue, Angular) serialize HTML on the server, then re-execute all component code on the client to re-attach event listeners — this is hydration. Qwik avoids this by serializing the application state AND the event handler references into the HTML itself (using qwikloader, a tiny 1KB script). When a user clicks a button, Qwik downloads only that specific handler's code chunk, not the entire application bundle. Result: zero JavaScript executed on startup regardless of app size."}},{"@type":"Question","name":"How does Qwik resumability improve web performance?","acceptedAnswer":{"@type":"Answer","text":"Qwik resumability improves web performance by eliminating startup JavaScript execution. In hydration-based frameworks: the browser downloads the full JS bundle, parses it, executes it, and re-builds the component tree. This contributes to Time-to-Interactive (TTI) delay. With Qwik: the server serializes state and event references into HTML. The browser loads a 1KB qwikloader. No JS runs until user interaction. On first click, only the specific handler chunk (typically 2-10KB) is fetched. This makes Qwik apps achieve near-instant TTI regardless of app complexity."}}]}
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Qwik Resumability: How It Works, Performance Benefits & Hydration Comparison (2025)",
+  "description": "Complete explanation of Qwik resumability vs hydration. How resumability achieves zero JS on startup, serialized state in HTML, lazy-loaded event handlers. Performance comparison, architecture guide, and code examples.",
+  "keywords": "qwik resumability, qwik resumability web performance, qwik hydration vs resumability, qwik performance, resumability, hydration",
+  "image": "https://franrivalbigprojects.github.io/qwik-tools/og-image.png",
+  "datePublished": "2025-04-13",
+  "dateModified": "2025-05-11",
+  "author": {
+    "@type": "Person",
+    "name": "Emmanuel Ibarra",
+    "url": "https://emmanuelibarra.com"
+  },
+  "articleBody": "Qwik resumability is an alternative to JavaScript hydration. Traditional SSR frameworks serialize HTML on the server, then re-execute all component code on the client to re-attach event listeners. Qwik avoids this by serializing the application state AND event handler references into HTML. A tiny 1KB script intercepts events. When clicked, only specific handler chunks load.",
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Qwik Resumability"
+    },
+    {
+      "@type": "Thing",
+      "name": "Hydration"
+    },
+    {
+      "@type": "Thing",
+      "name": "Web Performance"
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is Qwik resumability?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Qwik resumability is an alternative to JavaScript hydration. Traditional SSR frameworks (React, Vue, Angular) serialize HTML on the server, then re-execute all component code on the client to re-attach event listeners — this is hydration. Qwik avoids this by serializing the application state AND the event handler references into the HTML itself (using qwikloader, a tiny 1KB script). When a user clicks a button, Qwik downloads only that specific handler's code chunk, not the entire application bundle. Result: zero JavaScript executed on startup regardless of app size."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does Qwik resumability improve web performance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Qwik resumability improves web performance by eliminating startup JavaScript execution. In hydration-based frameworks: the browser downloads the full JS bundle, parses it, executes it, and re-builds the component tree. This contributes to Time-to-Interactive (TTI) delay. With Qwik: the server serializes state and event references into HTML. The browser loads a 1KB qwikloader. No JS runs until user interaction. On first click, only the specific handler chunk (typically 2-10KB) is fetched. This makes Qwik apps achieve near-instant TTI regardless of app complexity."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does Qwik differ from React with Server-Side Rendering?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Both Qwik and React SSR render HTML on the server. The difference is startup behavior. React SSR requires hydration: download full JS bundle, parse it, re-execute all component code, rebuild virtual DOM, attach event listeners to every element. Qwik uses resumability: download HTML with serialized state, load 1KB qwikloader, intercept events globally, download only the clicked handler's code (~2-10KB per interaction). Qwik's TTI is near-instant regardless of app size, while React SSR's TTI grows with bundle size."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Qwik resumability production-ready?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Qwik 1.x and Qwik City are stable and production-ready as of 2025. Several companies use Qwik in production for e-commerce, content sites, and SPAs. The ecosystem is smaller than React/Next.js but growing rapidly. Qwik excels when Time-to-Interactive and Lighthouse scores are critical performance metrics."
+      }
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://franrivalbigprojects.github.io/qwik-tools/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Qwik Resumability Visualizer",
+      "item": "https://franrivalbigprojects.github.io/qwik-tools/"
+    }
+  ]
+}
 </script>
 
 </head>
@@ -508,10 +703,10 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
 <div class="wrapper">
 
   <section class="hero">
-    <p class="hero-eyebrow">// Qwik Framework 2025</p>
-    <h1>Qwik <em>Resumability</em> —<br>How It Works &amp; Web Performance Explained</h1>
+    <p class="hero-eyebrow">// Qwik Framework — Web Performance Optimization 2025</p>
+    <h1>Qwik <em>Resumability</em> —<br>Interactive Comparison vs React Hydration</h1>
     <p class="hero-sub">
-      How Qwik achieves <strong>zero JavaScript on startup</strong>: state serialized in HTML, lazy event handlers, and no re-execution on the client. Complete comparison vs hydration with performance benchmarks.
+      How Qwik achieves <strong>zero JavaScript on startup</strong>: state serialized in HTML, lazy event handlers, and no component re-execution on the client. See the performance difference in the interactive visualizer below.
     </p>
     <div class="metric-chips">
       <div class="mc"><div class="mc-label">Startup JS (Qwik)</div><div class="mc-val mc-q">~1 KB</div></div>
@@ -519,14 +714,18 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
       <div class="mc"><div class="mc-label">TTI on slow 3G (Qwik)</div><div class="mc-val mc-q">~0.3s</div></div>
       <div class="mc"><div class="mc-label">TTI on slow 3G (React)</div><div class="mc-val mc-h">3–8s</div></div>
       <div class="mc"><div class="mc-label">Qwikloader size</div><div class="mc-val mc-q">1 KB</div></div>
+      <div class="mc"><div class="mc-label">Performance improvement</div><div class="mc-val mc-q">10x faster</div></div>
     </div>
   </section>
 
   <!-- INTERACTIVE VISUALIZER -->
 
+  <h2>Interactive Performance Visualizer</h2>
+  <p>Press "Replay" to see the execution timeline. Notice how Qwik's page becomes interactive instantly, while React SSR's hydration takes seconds on slow networks.</p>
+
   <div class="viz-shell">
     <div class="viz-topbar">
-      <span class="topbar-label">// Performance Visualizer — Resumability vs Hydration</span>
+      <span class="topbar-label">// Performance Visualizer — Resumability vs Hydration Timeline</span>
       <div style="display:flex;gap:8px;align-items:center;">
         <div class="viz-tabs">
           <button class="vt-btn active-q" id="btnQwik" onclick="showMode('qwik',this)">Qwik (Resumable)</button>
@@ -537,75 +736,86 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
       </div>
     </div>
 
-
 <div class="viz-stage" id="vizStage"></div>
+
+  </div>
+
+  <!-- DEEP EXPLANATION -->
+
+  <h2>How Qwik Resumability Works</h2>
+
+  <h3>Step 1: Server Serializes Everything Into HTML</h3>
+  <div class="dense-block">
+    <p>When Qwik renders on the server, it does everything React SSR does — renders HTML — but additionally serializes the <strong>complete application state</strong> and <strong>event handler references</strong> directly into the HTML as JSON in a special <code>script</code> tag (<code>type="qwik/json"</code>). Event listeners are encoded as <code>on:click</code> attributes pointing to lazy-loadable chunk URLs. The client receives fully-rendered HTML with all the information needed to resume — not restart — the app.</p>
+  </div>
+
+  <h3>Step 2: Qwikloader Intercepts Events (No App Code Runs)</h3>
+  <div class="dense-block">
+    <p>Instead of loading your app's JavaScript, Qwik loads a single <strong>1KB inline script called Qwikloader</strong>. Qwikloader attaches a single global event listener using event delegation. It intercepts user interactions (clicks, inputs, keypresses) before any app code runs. <strong>No component code executes on startup.</strong> No virtual DOM is constructed. No event listeners are attached per-element. This is why Qwik's TTI is effectively zero regardless of app size.</p>
+  </div>
+
+  <h3>Step 3: Lazy-Load Only What Users Trigger</h3>
+  <div class="dense-block">
+    <p>When a user clicks a button, Qwikloader reads the <code>on:click</code> attribute, which contains a URL to the specific JavaScript chunk for that handler. Qwik fetches <strong>only that handler chunk</strong> (typically 2-10KB), deserializes the relevant state from the HTML JSON, and executes the handler. Adjacent components, unrelated handlers, and unvisited routes are <strong>never downloaded</strong>. This is fundamentally different from hydration — which must download everything before any interaction can be processed.</p>
+  </div>
+
+  <h3>Why This Matters: Core Web Vitals Improvement</h3>
+  <div class="dense-block">
+    <h4>First Contentful Paint (FCP)</h4>
+    <p>Same as any SSR framework — HTML arrives pre-rendered. No difference between Qwik and React SSR.</p>
+
+
+<h4>Largest Contentful Paint (LCP)</h4>
+<p>Identical to SSR approaches. Server-rendered content is available immediately.</p>
+
+<h4>Time to Interactive (TTI) — The Key Difference</h4>
+<p>React SSR: Full JS bundle downloads → parses → executes → page becomes interactive (3-8 seconds on slow 3G). Qwik: Qwikloader runs instantly, page is interactive immediately. First interaction downloads only needed chunks. <strong>Qwik achieves TTI in milliseconds.</strong></p>
+
+<h4>Total Blocking Time (TBT)</h4>
+<p>React SSR: Large blocking time during bundle parse/execute on startup. Qwik: Zero blocking time on startup, minimal per-interaction. Massive TBT reduction on mobile.</p>
+
+<h4>Cumulative Layout Shift (CLS)</h4>
+<p>Same as SSR (pre-rendered HTML prevents layout shifts). Both frameworks are equal here.</p>
 
 
   </div>
 
-  <hr class="divider">
-
-  <!-- DEEP EXPLANATION -->
-
-  <section class="content-section">
-    <div class="sec-head">
-      <span class="sec-label">How resumability works</span>
-      <span class="sec-rule"></span>
-    </div>
-    <div class="dense-block">
-      <p><strong>Step 1 — Server serializes everything into HTML</strong><br>
-      When Qwik renders on the server, it does everything React SSR does — renders HTML — but additionally serializes the <strong>complete application state</strong> and <strong>event handler references</strong> directly into the HTML as JSON in a special <code>script</code> tag (<code>type="qwik/json"</code>). Event listeners are encoded as <code>on:click</code> attributes pointing to lazy-loadable chunk URLs. The client receives fully-rendered HTML with all the information needed to resume — not restart — the app.</p>
-      <p><strong>Step 2 — Qwikloader (1KB) intercepts events</strong><br>
-      Instead of loading your app's JavaScript, Qwik loads a single <strong>1KB inline script called Qwikloader</strong>. Qwikloader attaches a single global event listener using event delegation. It intercepts user interactions (clicks, inputs, keypresses) before any app code runs. No component code executes on startup. No virtual DOM is constructed. No event listeners are attached per-element. This is why Qwik's TTI is effectively zero regardless of app size.</p>
-      <p><strong>Step 3 — Lazy-load only what the user triggers</strong><br>
-      When a user clicks a button, Qwikloader reads the <code>on:click</code> attribute, which contains a URL to the specific JavaScript chunk for that handler. Qwik fetches <strong>only that handler chunk</strong> (typically 2-10KB), deserializes the relevant state from the HTML JSON, and executes the handler. Adjacent components, unrelated handlers, and unvisited routes are <strong>never downloaded</strong>. This is fundamentally different from hydration — which must download everything before any interaction can be processed.</p>
-      <p><strong>Why this matters for web performance</strong><br>
-      The standard web performance metrics all improve with resumability: <strong>FCP (First Contentful Paint)</strong> — same as any SSR framework, HTML arrives pre-rendered. <strong>TTI (Time to Interactive)</strong> — near-zero, since Qwikloader handles events without app JS. <strong>TBT (Total Blocking Time)</strong> — zero on startup, since no large JS bundle parses and executes. <strong>CLS (Cumulative Layout Shift)</strong> — same as SSR (pre-rendered HTML). On slow 3G connections, React SSR apps can take 3-8 seconds to become interactive while the JS bundle hydrates. Qwik apps are interactive in milliseconds.</p>
-    </div>
-  </section>
-
   <!-- COMPARISON TABLE -->
 
-  <section class="content-section">
-    <div class="sec-head">
-      <span class="sec-label">Resumability vs Hydration comparison</span>
-      <span class="sec-rule"></span>
-    </div>
-    <table class="cmp-table">
-      <thead>
-        <tr>
-          <th class="td-feat">Property</th>
-          <th style="color:var(--qwik)">Qwik Resumability</th>
-          <th style="color:var(--hyd)">Hydration (React/Vue/Angular SSR)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td class="td-feat">Startup JS downloaded</td><td class="td-q">~1KB (qwikloader only)</td><td class="td-h">Full bundle (150–400KB+)</td></tr>
-        <tr><td class="td-feat">Startup JS executed</td><td class="td-q">0 — qwikloader is inline</td><td class="td-h">Full bundle parsed + executed</td></tr>
-        <tr><td class="td-feat">Time to Interactive (TTI)</td><td class="td-q">Near-instant (~0.3s)</td><td class="td-h">After full bundle loads (3–8s on 3G)</td></tr>
-        <tr><td class="td-feat">DOM re-created on client</td><td class="td-q">No — HTML is the truth</td><td class="td-h">Yes — full virtual DOM reconstruction</td></tr>
-        <tr><td class="td-feat">Event listeners at startup</td><td class="td-q">None (one global on window)</td><td class="td-h">Re-attached to every element</td></tr>
-        <tr><td class="td-feat">State on client at startup</td><td class="td-q">Deserialized from HTML on demand</td><td class="td-h">Re-computed by running component code</td></tr>
-        <tr><td class="td-feat">Code executed per interaction</td><td class="td-q">Only handler chunk (~2-10KB)</td><td class="td-h">Handlers already loaded — re-renders may occur</td></tr>
-        <tr><td class="td-feat">Scales with app size</td><td class="td-q">Yes — TTI stays constant</td><td class="td-h">No — TTI grows with bundle size</td></tr>
-        <tr><td class="td-feat">Server-side rendering</td><td class="td-q">Required (full SSR)</td><td class="td-h">Required for SSR hydration</td></tr>
-        <tr><td class="td-feat">Framework examples</td><td class="td-q">Qwik, Qwik City</td><td class="td-h">Next.js, Nuxt, Angular Universal, SvelteKit*</td></tr>
-        <tr><td class="td-feat">Cold start penalty</td><td class="td-q">None</td><td class="td-h">Every page load pays the hydration cost</td></tr>
-      </tbody>
-    </table>
-    <p style="font-size:12px;color:var(--text-dim);">* SvelteKit compiles to smaller bundles but still requires hydration. Astro uses partial hydration which is different from resumability.</p>
-  </section>
+  <h2>Resumability vs Hydration: Detailed Comparison</h2>
+
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th class="td-feat">Property</th>
+        <th style="color:var(--qwik)">Qwik Resumability</th>
+        <th style="color:var(--hyd)">Hydration (React/Vue/Angular SSR)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="td-feat">Startup JS downloaded</td><td class="td-q">~1KB (qwikloader only)</td><td class="td-h">Full bundle (150–400KB+)</td></tr>
+      <tr><td class="td-feat">Startup JS executed</td><td class="td-q">0 — qwikloader is inline</td><td class="td-h">Full bundle parsed + executed</td></tr>
+      <tr><td class="td-feat">Time to Interactive (TTI)</td><td class="td-q">Near-instant (~0.3s)</td><td class="td-h">After full bundle loads (3–8s on 3G)</td></tr>
+      <tr><td class="td-feat">DOM re-created on client</td><td class="td-q">No — HTML is the truth</td><td class="td-h">Yes — full virtual DOM reconstruction</td></tr>
+      <tr><td class="td-feat">Event listeners at startup</td><td class="td-q">None (one global on window)</td><td class="td-h">Re-attached to every element</td></tr>
+      <tr><td class="td-feat">State on client at startup</td><td class="td-q">Deserialized from HTML on demand</td><td class="td-h">Re-computed by running component code</td></tr>
+      <tr><td class="td-feat">Code executed per interaction</td><td class="td-q">Only handler chunk (~2-10KB)</td><td class="td-h">Handlers already loaded — re-renders may occur</td></tr>
+      <tr><td class="td-feat">Scales with app size</td><td class="td-q">Yes — TTI stays constant</td><td class="td-h">No — TTI grows with bundle size</td></tr>
+      <tr><td class="td-feat">Server-side rendering</td><td class="td-q">Required (full SSR)</td><td class="td-h">Required for SSR hydration</td></tr>
+      <tr><td class="td-feat">Framework examples</td><td class="td-q">Qwik, Qwik City</td><td class="td-h">Next.js, Nuxt, Angular Universal</td></tr>
+      <tr><td class="td-feat">Cold start penalty</td><td class="td-q">None</td><td class="td-h">Every page load pays the hydration cost</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:var(--text-dim);margin-top:8px;">* SvelteKit compiles to smaller bundles but still requires hydration. Astro uses partial hydration which is different from resumability.</p>
 
   <!-- CODE EXAMPLES -->
 
-  <section class="content-section">
-    <div class="sec-head">
-      <span class="sec-label">Qwik resumability in code</span>
-      <span class="sec-rule"></span>
-    </div>
+  <h2>Qwik Resumability in Code</h2>
 
-<div class="code-block"><span class="cm">// ─── Qwik Component — resumability in action ───</span>
+  <h3>Basic Component Example</h3>
+  <p>Here's how a simple counter component looks in Qwik:</p>
 
+  <div class="code-block"><span class="cm">// ─── Qwik Component — resumability in action ───</span>
 
 <span class="ck">import</span> { component$, useSignal } <span class="ck">from</span> <span class="cs">’@builder.io/qwik’</span>;
 
@@ -624,10 +834,10 @@ Count: {count.value}
 
 <span class="cm">// ─── What Qwik serializes into HTML ───</span>
 <span class="cm">// The server renders this into the HTML:</span>
-<span class="cg"><button on:click=“q-chunk-abc123.js#Counter_onClick”></span>
+<span class="cg"><button on:click="q-chunk-abc123.js#Counter_onClick"></span>
 <span class="cg">  Count: 0</span>
 <span class="cg"></button></span>
-<span class="cg"><script type=“qwik/json”></span>
+<span class="cg"><script type="qwik/json"></span>
 <span class="cg">  {“objs”: [0], “subs”: [[“counter”, 0]]}</span>
 <span class="cg"></script></span>
 
@@ -639,8 +849,10 @@ Count: {count.value}
 <span class="cm">// 5. Executes handler: count.value++</span>
 <span class="cm">// 6. Fine-grained reactivity updates only the text node</span></div>
 
-<div class="code-block"><span class="cm">// ─── Qwik City (Router) — routeLoader$ ───</span>
+  <h3>Router and Data Loading with Qwik City</h3>
+  <p>Qwik City extends Qwik with routing and server functions, both following resumability principles:</p>
 
+  <div class="code-block"><span class="cm">// ─── Qwik City (Router) — routeLoader$ ───</span>
 
 <span class="cm">// Similar to Remix loaders but with resumability</span>
 <span class="ck">import</span> { routeLoader$, routeAction$ } <span class="ck">from</span> <span class="cs">’@builder.io/qwik-city’</span>;
@@ -657,38 +869,90 @@ Count: {count.value}
 <span class="ck">return</span> { success: <span class="ck">true</span> };
 });</div>
 
-  </section>
+  <!-- REAL-WORLD SCENARIOS -->
+
+  <h2>Real-World Performance Scenarios</h2>
+
+  <h3>E-commerce Product Listing</h3>
+  <div class="dense-block">
+    <p><strong>Qwik approach:</strong> Server renders 100 products with prices and images. Qwikloader intercepts clicks. User clicks "Add to Cart" → handler chunk downloads (~4KB) → item added instantly. Filter button clicked → filter handler loads separately. No re-render of entire product list.</p>
+    <p><strong>React SSR approach:</strong> Server renders products. Client downloads 280KB bundle, parses it (500ms on 3G), executes all product components, rebuilds state, attaches listeners. Now interactive. Same actions as Qwik but 2-3 seconds later on slow networks.</p>
+    <p><strong>Impact:</strong> Qwik product pages load 10x faster on mobile, leading to higher conversion rates and lower bounce rates.</p>
+  </div>
+
+  <h3>Dashboard with Complex Interactions</h3>
+  <div class="dense-block">
+    <p><strong>Qwik:</strong> Server renders dashboard with charts, tables, and filters. User sees everything instantly. Clicking chart → chart interaction handler loads. Table sort → sort handler loads. Only used features download code. A rarely-used export feature might never load its code.</p>
+    <p><strong>React SSR:</strong> All feature code must download and parse before any interaction works, regardless of which features users actually use.</p>
+    <p><strong>Impact:</strong> Qwik pays only for features users actually interact with, dramatically reducing bundle overhead.</p>
+  </div>
+
+  <!-- COMMON PITFALLS & QUESTIONS -->
+
+  <h2>Common Questions & Potential Pitfalls</h2>
+
+  <div class="dense-block">
+    <h4>Does resumability work with third-party scripts and plugins?</h4>
+    <p>Yes, but with considerations. Third-party code (Google Analytics, chat widgets) runs outside Qwik's lazy system. Place them in head or use Partytown to isolate them from the main thread. This prevents third-party scripts from blocking Qwik's lazy loading.</p>
+
+
+<h4>How does resumability handle form submissions?</h4>
+<p>Forms work seamlessly. Server pre-renders the form HTML. On submit, Qwik's <code>routeAction$</code> downloads the server handler code (~1-2KB), sends data, and processes the response. No app JS needed until submission.</p>
+
+<h4>Can you use Qwik with existing React libraries?</h4>
+<p>Qwik can integrate React components via the Qwik React adapter, but they'll lose resumability benefits and revert to hydration. For best performance, prefer Qwik-native components or libraries built for resumability.</p>
+
+<h4>Does resumability affect SEO?</h4>
+<p>No, SEO is improved. Server-rendered HTML is crawl-friendly. Qwik's fast TTI means crawlers finish faster. Better Core Web Vitals = better SEO rankings.</p>
+
+
+  </div>
 
   <!-- FAQ -->
 
-  <section class="content-section">
-    <div class="sec-head">
-      <span class="sec-label">FAQ — Qwik resumability</span>
-      <span class="sec-rule"></span>
+  <h2>Frequently Asked Questions</h2>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What is Qwik resumability?<span class="faq-arrow">&#9660;</span></button>
+      <div class="faq-a">Resumability is Qwik's alternative to hydration. Traditional SSR frameworks re-execute all component code on the client to re-attach event listeners (hydration). Qwik avoids this by serializing the application state AND event handler chunk URLs into the HTML. A 1KB Qwikloader script intercepts events globally. When a user interacts, Qwik fetches only that specific handler's code chunk (~2-10KB). Result: zero JavaScript executed on startup, regardless of app size.</div>
     </div>
-    <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What is Qwik resumability?<span class="faq-arrow">&#9660;</span></button>
-        <div class="faq-a">Resumability is Qwik's alternative to hydration. Traditional SSR frameworks re-execute all component code on the client to re-attach event listeners (hydration). Qwik serializes the application state AND event handler chunk URLs into the HTML. A 1KB Qwikloader script intercepts events globally. When a user interacts, Qwik fetches only that specific handler's code chunk (~2-10KB). Result: zero JavaScript executed on startup, regardless of app size.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">How does Qwik resumability improve web performance?<span class="faq-arrow">&#9660;</span></button>
-        <div class="faq-a">Three key performance improvements: (1) <strong>TTI near zero</strong> — no JS bundle to parse/execute before the app is interactive. (2) <strong>Constant startup cost</strong> — TTI doesn't grow as the app gets larger, unlike hydration. (3) <strong>Pays only for what's used</strong> — features never clicked by a user never download their code. On slow 3G, this is the difference between 3-8 seconds vs milliseconds. Lighthouse scores improve dramatically since no large JS bundle blocks the main thread.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What is the difference between Qwik and React with SSR?<span class="faq-arrow">&#9660;</span></button>
-        <div class="faq-a">Both render HTML on the server. The difference is what happens on the client: <strong>React SSR + hydration</strong> — downloads the full JS bundle, parses it, re-runs all component code, re-constructs the virtual DOM, re-attaches every event listener. <strong>Qwik resumability</strong> — downloads only qwikloader (1KB), reads serialized state from HTML, intercepts events globally. First interaction downloads only the clicked handler (~2-10KB). The performance gap grows as app complexity increases.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Is Qwik resumability ready for production in 2025?<span class="faq-arrow">&#9660;</span></button>
-        <div class="faq-a">Qwik 1.x and Qwik City are stable and production-ready. Several companies use Qwik in production. Qwik 2.0 was announced with further performance improvements. Ecosystem maturity is smaller than React/Next.js but growing. Use cases where Qwik shines most: e-commerce (interaction-heavy, performance-critical), content sites with SPAs, dashboard apps. If you're building a new project where TTI and Lighthouse scores are critical, Qwik is a strong choice in 2025.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">How does Qwik handle state serialization?<span class="faq-arrow">&#9660;</span></button>
-        <div class="faq-a">Qwik uses a special <code>type="qwik/json"</code> script tag injected into the HTML by the server. This tag contains a compact JSON representation of all reactive state (signals, stores) used on the page. When a handler is invoked, Qwik deserializes only the state relevant to that handler from this JSON. State updates trigger Qwik's fine-grained reactivity — only the specific DOM nodes that depend on the changed signal are updated, without re-rendering the entire component tree.</div>
-      </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How does Qwik resumability improve web performance?<span class="faq-arrow">&#9660;</span></button>
+      <div class="faq-a">Three key performance improvements: (1) <strong>TTI near zero</strong> — no JS bundle to parse/execute before the app is interactive. (2) <strong>Constant startup cost</strong> — TTI doesn't grow as the app gets larger, unlike hydration. (3) <strong>Pays only for what's used</strong> — features never clicked by a user never download their code. On slow 3G, this is the difference between 3-8 seconds vs milliseconds. Lighthouse scores improve dramatically since no large JS bundle blocks the main thread.</div>
     </div>
-  </section>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What is the difference between Qwik and React with Server-Side Rendering?<span class="faq-arrow">&#9660;</span></button>
+      <div class="faq-a">Both render HTML on the server. The difference is what happens on the client: <strong>React SSR + hydration</strong> — downloads the full JS bundle, parses it, re-runs all component code, re-constructs the virtual DOM, re-attaches every event listener. <strong>Qwik resumability</strong> — downloads only qwikloader (1KB), reads serialized state from HTML, intercepts events globally. First interaction downloads only the clicked handler (~2-10KB). The performance gap grows as app complexity increases.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Is Qwik resumability production-ready in 2025?<span class="faq-arrow">&#9660;</span></button>
+      <div class="faq-a">Yes. Qwik 1.x and Qwik City are stable and production-ready as of 2025. Several companies use Qwik in production. Ecosystem maturity is smaller than React/Next.js but growing. Use cases where Qwik shines most: e-commerce (interaction-heavy, performance-critical), content sites with SPAs, dashboard apps. If you're building a new project where TTI and Lighthouse scores are critical, Qwik is a strong choice.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How does Qwik handle state serialization and deserialization?<span class="faq-arrow">&#9660;</span></button>
+      <div class="faq-a">Qwik uses a special <code>type="qwik/json"</code> script tag injected into the HTML by the server. This tag contains a compact JSON representation of all reactive state (signals, stores) used on the page. When a handler is invoked, Qwik deserializes only the state relevant to that handler from this JSON. State updates trigger Qwik's fine-grained reactivity — only the specific DOM nodes that depend on the changed signal are updated, without re-rendering the entire component tree.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Can resumability work with dynamic content and real-time data?<span class="faq-arrow">&#9660;</span></button>
+      <div class="faq-a">Yes. Qwik's <code>routeLoader$</code> handles server-side data fetching at render time, serializing results into HTML. For real-time updates, you can use WebSockets or polling within lazy-loaded handlers. The resumability principle still applies — only the handlers that listen to real-time updates need to be loaded, not the entire app.</div>
+    </div>
+  </div>
+
+  <!-- INTERNAL LINKING SECTION -->
+
+  <h2>Explore Related Tools & Concepts</h2>
+  <div class="internal-links">
+    <h4>Learn More About Web Performance</h4>
+    <ul>
+      <li><a href="#hydration-cost-calculator">Hydration Cost Calculator (coming soon)</a> — Calculate the exact performance impact of hydration in your app</li>
+      <li><a href="#bundle-analyzer">Qwik Bundle Analyzer (coming soon)</a> — See what code chunks are downloaded and when</li>
+      <li><a href="#core-web-vitals-benchmark">Core Web Vitals Benchmark (coming soon)</a> — Compare TTI across different frameworks</li>
+      <li><a href="#lazy-loading-guide">Guide to Lazy Loading in Qwik</a> — Best practices for fine-grained code splitting</li>
+    </ul>
+  </div>
+
+  <!-- TAGS/KEYWORDS FOOTER -->
 
   <div class="tag-cloud">
     <span class="tag">qwik resumability</span>
@@ -696,19 +960,23 @@ Count: {count.value}
     <span class="tag">qwik resumability performance</span>
     <span class="tag">qwik resumability architecture</span>
     <span class="tag">qwik hydration vs resumability</span>
+    <span class="tag">qwik performance</span>
     <span class="tag">qwikloader</span>
     <span class="tag">qwik tti</span>
-    <span class="tag">qwik lazy loading</span>
-    <span class="tag">qwik web performance testing</span>
-    <span class="tag">qwik vs react performance</span>
+    <span class="tag">web performance optimization</span>
+    <span class="tag">resumability vs hydration</span>
+    <span class="tag">javascript performance</span>
+    <span class="tag">ssr performance</span>
+    <span class="tag">lazy loading handlers</span>
+    <span class="tag">core web vitals</span>
   </div>
 
 </div>
 
 <footer>
   <div class="footer-inner">
-    <p>qwik-resumability &middot; architecture &middot; performance &middot; 2025</p>
-    <p>resumable vs hydration &middot; qwikloader &middot; lazy handlers &middot; tti</p>
+    <p>qwik-resumability-visualizer &middot; 2025 &middot; built by <a href="https://emmanuelibarra.com" style="color:var(--qwik);text-decoration:none;">Emmanuel Ibarra</a></p>
+    <p>resumable &middot; hydration &middot; qwikloader &middot; tti &middot; web performance</p>
   </div>
 </footer>
 
